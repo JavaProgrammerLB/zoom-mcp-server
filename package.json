@@ -2,10 +2,18 @@
   "name": "zoom-mcp-server",
   "version": "1.0.0",
   "description": "Now you can date a ZOOM meeting with AI's help.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavaProgrammerLB/zoom-mcp-server.git"
+  },
   "author": "Bill Lau",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JavaProgrammerLB/zoom-mcp-server/issues"
+  },
+  "homepage": "https://github.com/JavaProgrammerLB/zoom-mcp-server#readme"
 }
