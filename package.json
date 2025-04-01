@@ -24,7 +24,7 @@
   "homepage": "https://github.com/JavaProgrammerLB/zoom-mcp-server#readme",
   "type": "module",
   "bin": {
-    "create-github-repository-mcp-server": "dist/index.js"
+    "zoom-mcp-server": "dist/index.js"
   },
   "files": [
     "dist"
