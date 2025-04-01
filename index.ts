@@ -1,6 +1,9 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { VERSION } from "./common/version.js";
+import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import { zodToJsonSchema } from 'zod-to-json-schema';
+import { CreateMeetingOptionsSchema } from "./operations/meeting.js";
 
 const server = new Server(
     {
@@ -12,6 +15,18 @@ const server = new Server(
     },
 }
 );
+
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+    return {
+        tools: [
+            {
+                name: "create_repository",
+                description: "Create a meeting",
+                inputSchema: zodToJsonSchema(CreateMeetingOptionsSchema),
+            }
+        ]
+    }
+});
 
 async function runServer() {
     const transport = new StdioServerTransport();
