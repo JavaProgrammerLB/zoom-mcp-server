@@ -1,0 +1,11 @@
+{
+  "name": "zoom-mcp-server",
+  "version": "1.0.0",
+  "description": "Now you can date a ZOOM meeting with AI's help.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bill Lau",
+  "license": "MIT"
+}
