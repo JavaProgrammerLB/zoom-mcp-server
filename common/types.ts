@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 export const TokenSchema = z.object({
-    accessToken: z.string(),
-    tokenType: z.string(),
-    expiresIn: z.number(),
+    access_token: z.string(),
+    token_type: z.string(),
+    expires_in: z.number(),
     scope: z.string(),
-    apiUrl: z.string()
+    api_url: z.string()
   });
 
 export const ZoomMeetingSchema = z.object({
-    uuid: z.number()
+    uuid: z.string()
   });
