@@ -4,7 +4,7 @@
   "description": "Now you can date a ZOOM meeting with AI's help.",
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
-    "prepare": "npm run build",
+    "prepare": "husky",
     "watch": "tsc --watch"
   },
   "repository": {
@@ -39,8 +39,13 @@
     "zod-to-json-schema": "^3.23.5"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "3.5.3",
     "shx": "^0.3.4",
     "typescript": "^5.6.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
