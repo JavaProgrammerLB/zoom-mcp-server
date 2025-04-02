@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
     "prepare": "husky",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector dist/index.js"
   },
   "repository": {
     "type": "git",
