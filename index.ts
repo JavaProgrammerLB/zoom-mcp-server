@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { VERSION } from "./common/version.js";
@@ -5,6 +6,7 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprot
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import { createMeeting, CreateMeetingOptionsSchema } from "./operations/meeting.js";
 import { z } from "zod";
+import { getAccessToken } from "./common/auth.js";
 
 const server = new Server(
     {
@@ -31,24 +33,25 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
     try {
-        if(!request.params.arguments){
+        if (!request.params.arguments) {
             throw new Error("No arguments provided");
         }
-        switch(request.params.name){
+        let token = await getAccessToken();
+        switch (request.params.name) {
             case "create_meeting": {
                 const args = CreateMeetingOptionsSchema.parse(request.params.arguments);
-                const result = await createMeeting(args);
+                const result = await createMeeting(args, token.access_token);
                 return {
-                  content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+                    content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
                 };
-              }
+            }
         }
 
-    }catch(error){
+    } catch (error) {
         if (error instanceof z.ZodError) {
             throw new Error(`Invalid input: ${JSON.stringify(error.errors)}`);
-          }
-          throw error;
+        }
+        throw error;
     }
 
     return {};

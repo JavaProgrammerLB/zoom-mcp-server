@@ -9,11 +9,11 @@ export const CreateMeetingOptionsSchema = z.object({
 
 export type CreateMeetingOptions = z.infer<typeof CreateMeetingOptionsSchema>;
 
-export async function createMeeting(options: CreateMeetingOptions) {
-    const user_id = '';
-    const response = await zoomRequest(`https://api.zoom.us/v2/users/${user_id}/meetings`, {
+export async function createMeeting(options: CreateMeetingOptions, token: string) {
+    const response = await zoomRequest(`https://api.zoom.us/v2/users/me/meetings`, {
       method: "POST",
       body: options,
+      headers: { 'Authorization': `Bearer ${token}` }
     });
     return ZoomMeetingSchema.parse(response);
   }
