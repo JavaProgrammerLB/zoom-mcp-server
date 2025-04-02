@@ -10,6 +10,8 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import {
   createMeeting,
   CreateMeetingOptionsSchema,
+  ListMeetingOptionsSchema,
+  listMeetings,
 } from "./operations/meeting.js";
 import { z } from "zod";
 import { getAccessToken } from "./common/auth.js";
@@ -34,6 +36,11 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         description: "Create a meeting",
         inputSchema: zodToJsonSchema(CreateMeetingOptionsSchema),
       },
+      {
+        name: "list_meetings",
+        description: "List scheduled meetings",
+        inputSchema: zodToJsonSchema(ListMeetingOptionsSchema),
+      },
     ],
   };
 });
@@ -48,6 +55,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "create_meeting": {
         const args = CreateMeetingOptionsSchema.parse(request.params.arguments);
         const result = await createMeeting(args, token.access_token);
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+        };
+      }
+
+      case "list_meetings": {
+        const args = ListMeetingOptionsSchema.parse(request.params.arguments);
+        const result = await listMeetings(args, token.access_token);
         return {
           content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
         };

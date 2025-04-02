@@ -89,3 +89,25 @@ export const ZoomMeetingSchema = z.object({
   creation_source: z.string(),
   pre_schedule: z.boolean(),
 });
+
+export const ZoomListMeetingsSchema = z.object({
+  page_size: z.number(),
+  total_records: z.number(),
+  next_page_token: z.string(),
+  meetings: z.array(
+    z.object({
+      uuid: z.string(),
+      id: z.number(),
+      host_id: z.string(),
+      topic: z.string(),
+      type: z.number(),
+      start_time: z.string(),
+      duration: z.number(),
+      timezone: z.string(),
+      agenda: z.string(),
+      created_at: z.string(),
+      join_url: z.string(),
+      supportGoLive: z.boolean(),
+    }),
+  ),
+});
