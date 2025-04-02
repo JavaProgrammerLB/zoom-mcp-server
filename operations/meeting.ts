@@ -3,7 +3,11 @@ import { zoomRequest } from "../common/util.js";
 import { ZoomMeetingSchema } from "../common/types.js";
 
 export const CreateMeetingOptionsSchema = z.object({
-  agenda: z.string().max(2000).describe("The meeting's agenda"),
+  agenda: z
+    .string()
+    .max(2000)
+    .describe("The meeting's agenda")
+    .default("New Meeting"),
   start_time: z.string().optional().describe("The meeting's start time"),
   timezone: z
     .string()
