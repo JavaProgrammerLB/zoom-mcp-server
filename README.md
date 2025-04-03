@@ -1,3 +1,4 @@
-## ZOOM API
+# Zoom MCP Server
 
-- [Create Meeting](https://developers.zoom.us/docs/api/meetings/#tag/meetings/POST/users/{userId}/meetings)
+Now you can date a ZOOM meeting with AI's help.
+![about.jpg](about.jpg)
