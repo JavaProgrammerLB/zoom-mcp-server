@@ -3,7 +3,7 @@
 Now you can date a Zoom meeting with AI's help
 ![about.jpg](about.jpg)
 
-## 3 Steps to play with zoom-mcp-servver
+## 3 Steps to play with zoom-mcp-server
 
 - Download this repository
 - Get Zoom Client ID, Zoom Client Secret and Account ID
