@@ -23,22 +23,18 @@ export const ListMeetingOptionsSchema = z.object({
 export type CreateMeetingOptions = z.infer<typeof CreateMeetingOptionsSchema>;
 export type ListMeetingOptions = z.infer<typeof ListMeetingOptionsSchema>;
 
-export async function createMeeting(
-  options: CreateMeetingOptions,
-  token: string,
-) {
+export async function createMeeting(options: CreateMeetingOptions) {
   const response = await zoomRequest(
     `https://api.zoom.us/v2/users/me/meetings`,
     {
       method: "POST",
       body: options,
-      headers: { Authorization: `Bearer ${token}` },
     },
   );
   return ZoomMeetingSchema.parse(response);
 }
 
-export async function listMeetings(options: ListMeetingOptions, token: string) {
+export async function listMeetings(options: ListMeetingOptions) {
   let url = "https://api.zoom.us/v2/users/me/meetings";
   const params = new URLSearchParams();
   Object.entries(options).forEach(([key, value]) => {
@@ -51,7 +47,6 @@ export async function listMeetings(options: ListMeetingOptions, token: string) {
   }
   const response = await zoomRequest(url, {
     method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
   });
   return ZoomListMeetingsSchema.parse(response);
 }

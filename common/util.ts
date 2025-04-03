@@ -1,6 +1,7 @@
 import { getUserAgent } from "universal-user-agent";
 import { VERSION } from "./version.js";
 import { createZoomError } from "./error.js";
+import { getAccessToken } from "./auth.js";
 
 type RequestOptions = {
   method?: string;
@@ -8,7 +9,7 @@ type RequestOptions = {
   headers?: Record<string, string>;
 };
 
-async function parseResponseBody(response: Response): Promise<unknown> {
+export async function parseResponseBody(response: Response): Promise<unknown> {
   const contentType = response.headers.get("content-type");
   if (contentType?.includes("application/json")) {
     return response.json();
@@ -22,9 +23,11 @@ export async function zoomRequest(
   url: string,
   options: RequestOptions = {},
 ): Promise<unknown> {
+  const token = (await getAccessToken()).access_token;
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "User-Agent": USER_AGENT,
+    Authorization: `Bearer ${token}`,
     ...options.headers,
   };
 

@@ -1,27 +1,31 @@
+import { createZoomError } from "./error.js";
 import { TokenSchema } from "./types.js";
-import { zoomRequest } from "./util.js";
+import { parseResponseBody, zoomRequest } from "./util.js";
 
 export async function getAccessToken() {
   let accountId = process.env.ZOOM_ACCOUNT_ID
     ? process.env.ZOOM_ACCOUNT_ID
     : "";
-
-  let authUrl = `https://zoom.us/oauth/token?grant_type=account_credentials&account_id=${accountId}`;
-
-  const key = `Basic ${refreshToken()}`;
-  const response = await zoomRequest(authUrl, {
-    method: "POST",
-    headers: { Authorization: key },
-  });
-  return TokenSchema.parse(response);
-}
-
-function refreshToken(): string {
   let clientId = process.env.ZOOM_CLIENT_ID ? process.env.ZOOM_CLIENT_ID : "";
   let clientSecret = process.env.ZOOM_CLIENT_SECRET
     ? process.env.ZOOM_CLIENT_SECRET
     : "";
-  return generateBasicAuth(clientId, clientSecret);
+
+  let authUrl = `https://zoom.us/oauth/token?grant_type=account_credentials&account_id=${accountId}`;
+
+  const response = await fetch(authUrl, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${generateBasicAuth(clientId, clientSecret)}`,
+    },
+  });
+
+  const responseBody = await parseResponseBody(response);
+  if (!response.ok) {
+    throw createZoomError(response.status, responseBody);
+  }
+
+  return TokenSchema.parse(responseBody);
 }
 
 function generateBasicAuth(username: string, password: string): string {

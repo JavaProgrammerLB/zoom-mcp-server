@@ -50,11 +50,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     if (!request.params.arguments) {
       throw new Error("No arguments provided");
     }
-    let token = await getAccessToken();
     switch (request.params.name) {
       case "create_meeting": {
         const args = CreateMeetingOptionsSchema.parse(request.params.arguments);
-        const result = await createMeeting(args, token.access_token);
+        const result = await createMeeting(args);
         return {
           content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
         };
@@ -62,7 +61,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "list_meetings": {
         const args = ListMeetingOptionsSchema.parse(request.params.arguments);
-        const result = await listMeetings(args, token.access_token);
+        const result = await listMeetings(args);
         return {
           content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
         };
