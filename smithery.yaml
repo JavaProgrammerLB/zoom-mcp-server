@@ -1,0 +1,38 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - zoomAccountId
+      - zoomClientId
+      - zoomClientSecret
+    properties:
+      zoomAccountId:
+        type: string
+        description: Zoom account ID
+      zoomClientId:
+        type: string
+        description: Zoom client ID
+      zoomClientSecret:
+        type: string
+        description: Zoom client secret
+    default: {}
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: {
+        ZOOM_ACCOUNT_ID: config.zoomAccountId,
+        ZOOM_CLIENT_ID: config.zoomClientId,
+        ZOOM_CLIENT_SECRET: config.zoomClientSecret
+      }
+    })
+  exampleConfig:
+    zoomAccountId: example-account-id
+    zoomClientId: example-client-id
+    zoomClientSecret: example-client-secret
