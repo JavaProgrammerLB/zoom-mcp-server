@@ -5,12 +5,19 @@
 Now you can date a Zoom meeting with AI's help
 ![about.jpg](about.jpg)
 
-## 2 Steps to play with zoom-mcp-server
+## 3 Steps to play with zoom-mcp-server
 
+- Download this repository
 - Get Zoom Client ID, Zoom Client Secret and Account ID
 - Config MCP server
 
-### 1. Get Zoom Client ID, Zoom Client Secret and Account ID
+### 1. Download this repository
+
+```
+git clone https://github.com/JavaProgrammerLB/zoom-mcp-server
+```
+
+### 2. Get Zoom Client ID, Zoom Client Secret and Account ID
 
 1. vist [Zoom Marketplace](https://marketplace.zoom.us/)
 1. Build App and choose **Server to Server OAuth App**
@@ -18,29 +25,20 @@ Now you can date a Zoom meeting with AI's help
 1. Active your app
    then you can get **Account ID**, **Client ID**, **Client Secret** in App Credentials page
 
-### 2. Config MCP Server
+### 3. Config MCP Server
 
 ```
 {
   "mcpServers": {
     "zoom-mcp-server": {
-      "command": "docker",
+      "command": "npx",
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "ZOOM_ACCOUNT_ID",
-        "-e",
-        "ZOOM_CLIENT_ID",
-        "-e",
-        "ZOOM_CLIENT_SECRET",
-        "ghcr.io/javaprogrammerlb/zoom-mcp-server"
+        "/PATH/TO/zoom-mcp-server"
       ],
       "env": {
-        "ZOOM_ACCOUNT_ID": "YOUR-ZOOM-ACCOUNT-ID",
-        "ZOOM_CLIENT_ID": "YOUR-ZOOM-CLIENT-ID",
-        "ZOOM_CLIENT_SECRET": "YOUR-ZOOM-CLIENT-SECRET"
+        "ZOOM_ACCOUNT_ID": "${ZOOM_ACCOUNT_ID}",
+        "ZOOM_CLIENT_ID": "${ZOOM_CLIENT_ID}",
+        "ZOOM_CLIENT_SECRET": "${ZOOM_CLIENT_SECRET}"
       }
     }
   }
