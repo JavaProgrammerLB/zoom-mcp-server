@@ -1,0 +1,44 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "zoom_account_id",
+      "description": "Zoom Account ID",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "zoom_client_id",
+      "description": "Zoom Client ID",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "zoom_client_secret",
+      "description": "Zoom Client Secret",
+      "password": true
+    }
+  ],
+  "servers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "ZOOM_ACCOUNT_ID",
+        "-e",
+        "ZOOM_CLIENT_ID",
+        "-e",
+        "ZOOM_CLIENT_SECRET",
+        "ghcr.io/javaprogrammerlb/zoom-mcp-server"
+      ],
+      "env": {
+        "ZOOM_ACCOUNT_ID": "${input:zoom_account_id}",
+        "ZOOM_CLIENT_ID": "${input:zoom_client_id}",
+        "ZOOM_CLIENT_SECRET": "${input:zoom_client_secret}"
+      }
+    }
+  }
+}
