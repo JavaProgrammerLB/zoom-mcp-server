@@ -85,7 +85,6 @@ export const ZoomMeetingSchema = z.object({
   pstn_password: z.string(),
   encrypted_password: z.string(),
   settings: ZoomMeetingSettingsSchema,
-  supportGoLive: z.boolean(),
   creation_source: z.string(),
   pre_schedule: z.boolean(),
 });
@@ -107,7 +106,6 @@ export const ZoomListMeetingsSchema = z.object({
       agenda: z.string(),
       created_at: z.string(),
       join_url: z.string(),
-      supportGoLive: z.boolean(),
     }),
   ),
 });
