@@ -20,7 +20,7 @@
     }
   ],
   "servers": {
-    "github": {
+    "zoom-mcp-server": {
       "command": "docker",
       "args": [
         "run",
