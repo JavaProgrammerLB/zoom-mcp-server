@@ -94,7 +94,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.log("zoom mcp server running on stdio");
 }
 
 runServer().catch((error) => {
