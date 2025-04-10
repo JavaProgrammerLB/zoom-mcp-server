@@ -10,11 +10,12 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import {
   createMeeting,
   CreateMeetingOptionsSchema,
+  deleteMeeting,
+  DeleteMeetingOptionsSchema,
   ListMeetingOptionsSchema,
   listMeetings,
 } from "./operations/meeting.js";
 import { z } from "zod";
-import { getAccessToken } from "./common/auth.js";
 
 const server = new Server(
   {
@@ -41,6 +42,11 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         description: "List scheduled meetings",
         inputSchema: zodToJsonSchema(ListMeetingOptionsSchema),
       },
+      {
+        name: "delete_meeting",
+        description: "Delete a meeting with a given ID",
+        inputSchema: zodToJsonSchema(DeleteMeetingOptionsSchema),
+      },
     ],
   };
 });
@@ -64,6 +70,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const result = await listMeetings(args);
         return {
           content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+        };
+      }
+
+      case "delete_meeting": {
+        const args = DeleteMeetingOptionsSchema.parse(request.params.arguments);
+        const result = await deleteMeeting(args);
+        return {
+          content: [{ type: "text", text: result }],
         };
       }
     }

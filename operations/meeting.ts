@@ -20,8 +20,13 @@ export const ListMeetingOptionsSchema = z.object({
   type: z.string().optional().describe("The type of meeting."),
 });
 
+export const DeleteMeetingOptionsSchema = z.object({
+  id: z.number().describe("The ID of the meeting to delete."),
+});
+
 export type CreateMeetingOptions = z.infer<typeof CreateMeetingOptionsSchema>;
 export type ListMeetingOptions = z.infer<typeof ListMeetingOptionsSchema>;
+export type DeleteMeetingOptions = z.infer<typeof DeleteMeetingOptionsSchema>;
 
 export async function createMeeting(options: CreateMeetingOptions) {
   const response = await zoomRequest(
@@ -49,4 +54,14 @@ export async function listMeetings(options: ListMeetingOptions) {
     method: "GET",
   });
   return ZoomListMeetingsSchema.parse(response);
+}
+
+export async function deleteMeeting(options: DeleteMeetingOptions) {
+  const response = await zoomRequest(
+    `https://api.zoom.us/v2/meetings/${options.id}`,
+    {
+      method: "DELETE",
+    },
+  );
+  return response;
 }
