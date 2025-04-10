@@ -4,6 +4,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { VERSION } from "./common/version.js";
 import {
   CallToolRequestSchema,
+  GetPromptRequestSchema,
+  ListPromptsRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { zodToJsonSchema } from "zod-to-json-schema";
@@ -25,9 +27,78 @@ const server = new Server(
   {
     capabilities: {
       tools: {},
+      prompts: {},
     },
   },
 );
+
+enum PromptName {
+  LIST_MEETINGS = "list_meetings",
+  CREATE_A_MEETING = "create_meeting",
+  DELETE_A_MEETING = "delete_a_meeting",
+}
+
+server.setRequestHandler(ListPromptsRequestSchema, async () => {
+  return {
+    prompts: [
+      {
+        name: PromptName.LIST_MEETINGS,
+        description: "A prompt to list meetings",
+      },
+      {
+        name: PromptName.CREATE_A_MEETING,
+        description: "A prompt to create a meeting",
+      },
+      {
+        name: PromptName.DELETE_A_MEETING,
+        description: "A prompt to delete a meeting",
+      },
+    ],
+  };
+});
+
+server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  if (name === PromptName.LIST_MEETINGS) {
+    return {
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: "List my zoom meetings",
+          },
+        },
+      ],
+    };
+  } else if (name === PromptName.CREATE_A_MEETING) {
+    return {
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: "Create a zoom meeting",
+          },
+        },
+      ],
+    };
+  } else if (name === PromptName.DELETE_A_MEETING) {
+    return {
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: "Delete a zoom meeting",
+          },
+        },
+      ],
+    };
+  }
+  throw new Error(`Unknown prompt: ${name}`);
+});
 
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
