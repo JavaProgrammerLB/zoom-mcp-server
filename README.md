@@ -1,9 +1,8 @@
 # Zoom MCP Server
-
-[![smithery badge](https://smithery.ai/badge/@JavaProgrammerLB/zoom-mcp-server)](https://smithery.ai/server/@JavaProgrammerLB/zoom-mcp-server)
-
 Now you can date a Zoom meeting with AI's help
 ![about.jpg](about.jpg)
+
+[![smithery badge](https://smithery.ai/badge/@JavaProgrammerLB/zoom-mcp-server)](https://smithery.ai/server/@JavaProgrammerLB/zoom-mcp-server)
 
 ## 3 Steps to play with zoom-mcp-server
 
