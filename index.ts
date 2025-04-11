@@ -28,6 +28,7 @@ const server = new Server(
     capabilities: {
       tools: {},
       prompts: {},
+      logging: {},
     },
   },
 );
@@ -165,6 +166,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+  server.sendLoggingMessage({
+    level: "info",
+    data: "Server started successfully",
+  });
 }
 
 runServer().catch((error) => {
