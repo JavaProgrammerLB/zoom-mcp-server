@@ -1,6 +1,6 @@
 {
   "name": "zoom-mcp-server",
-  "version": "1.0.0",
+  "version": "v0.6",
   "description": "Now you can date a ZOOM meeting with AI's help.",
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
