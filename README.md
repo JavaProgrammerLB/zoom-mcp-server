@@ -5,6 +5,22 @@
 Now you can date a Zoom meeting with AI's help
 ![about.jpg](about.jpg)
 
+## Usage
+
+### 1. list meetings
+
+- `list my meetings`
+- `list my upcoming meetings`
+
+### 2. create a meeting
+
+- `Schedule a meeting at today 3 pm with a introduce mcp topic`
+
+### 3. delete a meeting
+
+- `delete the latest meeting`
+- `delete the 86226580854 meeting`
+
 ## 2 Steps to play with zoom-mcp-server
 
 - Get Zoom Client ID, Zoom Client Secret and Account ID
