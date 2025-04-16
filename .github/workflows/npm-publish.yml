@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.release.target_commitish }}
 
       - name: Set up Node.js
