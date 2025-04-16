@@ -6,18 +6,20 @@ export const CreateMeetingOptionsSchema = z.object({
   agenda: z
     .string()
     .max(2000)
-    .describe("The meeting's agenda")
+    .describe("The meeting's agenda.")
     .default("New Meeting's agenda"),
   start_time: z
     .string()
     .optional()
     .describe(
-      "The meeting's start time. This supports local time and GMT formats.To set a meeting's start time in GMT, use the yyyy-MM-ddTHH:mm:ssZ date-time format. For example, 2020-03-31T12:02:00Z. To set a meeting's start time using a specific timezone, use the yyyy-MM-ddTHH:mm:ss date-time format and specify the timezone ID in the timezone field. If you do not specify a timezone, the timezone value defaults to your Zoom account's timezone. You can also use UTC for the timezone value. Note: If no start_time is set for a scheduled meeting, the start_time is set at the current time and the meeting type changes to an instant meeting, which expires after 30 days.",
+      `The meeting's start time. This supports local time and GMT formats.To set a meeting's start time in GMT, use the yyyy-MM-ddTHH:mm:ssZ date-time format. For example, 2020-03-31T12:02:00Z. To set a meeting's start time using a specific timezone, use the yyyy-MM-ddTHH:mm:ss date-time format and specify the timezone ID in the timezone field. If you do not specify a timezone, the timezone value defaults to your Zoom account's timezone. You can also use UTC for the timezone value. Note: If no start_time is set for a scheduled meeting, the start_time is set at the current time and the meeting type changes to an instant meeting, which expires after 30 days. current time is ${new Date().toISOString()}.`,
     ),
   timezone: z
     .string()
     .optional()
-    .describe("Timezone for the meeting's start time"),
+    .describe(
+      `Timezone for the meeting's start time. The Current timezone is ${Intl.DateTimeFormat().resolvedOptions().timeZone}.`,
+    ),
   topic: z.string().max(200).optional().describe("The meeting's topic."),
 });
 
