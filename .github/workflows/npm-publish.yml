@@ -1,4 +1,4 @@
-name: Update Version and Publish
+name: Npm Publish
 
 on:
   release:
@@ -10,13 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.release.target_commitish }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
@@ -24,7 +23,7 @@ jobs:
 
       - name: Extract version from release
         id: extract_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Update version.ts
         run: |
