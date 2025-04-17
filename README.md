@@ -46,7 +46,7 @@ Now you can date a Zoom meeting with AI's help
   "mcpServers": {
     "zoom-mcp-server": {
       "command": "npx",
-      "args": ["-y", "@yitianyigexiangfa/zoom-mcp-server"],
+      "args": ["-y", "@yitianyigexiangfa/zoom-mcp-server@latest"],
       "env": {
         "ZOOM_ACCOUNT_ID": "${ZOOM_ACCOUNT_ID}",
         "ZOOM_CLIENT_ID": "${ZOOM_CLIENT_ID}",
