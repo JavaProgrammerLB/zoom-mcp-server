@@ -6,7 +6,7 @@
     "build": "tsc && shx chmod +x dist/*.js",
     "prepare": "husky",
     "watch": "tsc --watch",
-    "inspector": "npx @modelcontextprotocol/inspector dist/index.js"
+    "inspector": "npx @modelcontextprotocol/inspector -- node dist/index.js -e ZOOM_ACCOUNT_ID=$ZOOM_ACCOUNT_ID -e ZOOM_CLIENT_ID=$ZOOM_CLIENT_ID -e ZOOM_CLIENT_SECRET=$ZOOM_CLIENT_SECRET"
   },
   "repository": {
     "type": "git",

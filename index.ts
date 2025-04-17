@@ -14,6 +14,8 @@ import {
   CreateMeetingOptionsSchema,
   deleteMeeting,
   DeleteMeetingOptionsSchema,
+  getAMeetingDetails,
+  GetMeetingOptionsSchema,
   ListMeetingOptionsSchema,
   listMeetings,
 } from "./operations/meeting.js";
@@ -37,6 +39,7 @@ enum PromptName {
   LIST_MEETINGS = "list_meetings",
   CREATE_A_MEETING = "create_meeting",
   DELETE_A_MEETING = "delete_a_meeting",
+  GET_A_MEETING_DETAILS = "get_a_meeting_details",
 }
 
 server.setRequestHandler(ListPromptsRequestSchema, async () => {
@@ -53,6 +56,10 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
       {
         name: PromptName.DELETE_A_MEETING,
         description: "A prompt to delete a meeting",
+      },
+      {
+        name: PromptName.GET_A_MEETING_DETAILS,
+        description: "A prompt to get a meeting's details",
       },
     ],
   };
@@ -97,6 +104,18 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
         },
       ],
     };
+  } else if (name === PromptName.GET_A_MEETING_DETAILS) {
+    return {
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: "Get a zoom meeting's details",
+          },
+        },
+      ],
+    };
   }
   throw new Error(`Unknown prompt: ${name}`);
 });
@@ -115,9 +134,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         inputSchema: zodToJsonSchema(ListMeetingOptionsSchema),
       },
       {
-        name: "delete_meeting",
+        name: "delete_a_meeting",
         description: "Delete a meeting with a given ID",
         inputSchema: zodToJsonSchema(DeleteMeetingOptionsSchema),
+      },
+      {
+        name: "get_a_meeting_details",
+        description: "Retrieve the meeting's details with a given ID",
+        inputSchema: zodToJsonSchema(GetMeetingOptionsSchema),
       },
     ],
   };
@@ -145,11 +169,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         };
       }
 
-      case "delete_meeting": {
+      case "delete_a_meeting": {
         const args = DeleteMeetingOptionsSchema.parse(request.params.arguments);
         const result = await deleteMeeting(args);
         return {
           content: [{ type: "text", text: result }],
+        };
+      }
+
+      case "get_a_meeting_details": {
+        const args = GetMeetingOptionsSchema.parse(request.params.arguments);
+        const result = await getAMeetingDetails(args);
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
         };
       }
     }

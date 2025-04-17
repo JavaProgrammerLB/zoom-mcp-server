@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { zoomRequest } from "../common/util.js";
-import { ZoomListMeetingsSchema, ZoomMeetingSchema } from "../common/types.js";
+import {
+  ZoomListMeetingsSchema,
+  ZoomMeetingDetailSchema,
+  ZoomMeetingSchema,
+} from "../common/types.js";
 
 export const CreateMeetingOptionsSchema = z.object({
   agenda: z
@@ -37,9 +41,14 @@ export const DeleteMeetingOptionsSchema = z.object({
   id: z.number().describe("The ID of the meeting to delete."),
 });
 
+export const GetMeetingOptionsSchema = z.object({
+  id: z.number().describe("The ID of the meeting."),
+});
+
 export type CreateMeetingOptions = z.infer<typeof CreateMeetingOptionsSchema>;
 export type ListMeetingOptions = z.infer<typeof ListMeetingOptionsSchema>;
 export type DeleteMeetingOptions = z.infer<typeof DeleteMeetingOptionsSchema>;
+export type GetMeetingOptions = z.infer<typeof GetMeetingOptionsSchema>;
 
 export async function createMeeting(options: CreateMeetingOptions) {
   const response = await zoomRequest(
@@ -77,4 +86,14 @@ export async function deleteMeeting(options: DeleteMeetingOptions) {
     },
   );
   return response;
+}
+
+export async function getAMeetingDetails(options: GetMeetingOptions) {
+  const response = await zoomRequest(
+    `https://api.zoom.us/v2/meetings/${options.id}`,
+    {
+      method: "GET",
+    },
+  );
+  return ZoomMeetingDetailSchema.parse(response);
 }

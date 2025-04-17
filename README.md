@@ -21,6 +21,11 @@ Now you can date a Zoom meeting with AI's help
 - `delete the latest meeting`
 - `delete the 86226580854 meeting`
 
+### 4. get a meeting detail
+
+- `Retrieve the latest meeting's details`
+- `Retrieve 86226580854 meeting's details`
+
 ## 2 Steps to play with zoom-mcp-server
 
 - Get Zoom Client ID, Zoom Client Secret and Account ID
