@@ -1,6 +1,6 @@
 {
   "name": "@yitianyigexiangfa/zoom-mcp-server",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Now you can date a ZOOM meeting with AI's help.",
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
