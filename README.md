@@ -1,11 +1,11 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/javaprogrammerlb-zoom-mcp-server-badge.png)](https://mseep.ai/app/javaprogrammerlb-zoom-mcp-server)
-
 # Zoom MCP Server
 
 [![NPM Version](https://img.shields.io/npm/v/@yitianyigexiangfa/zoom-mcp-server)](https://www.npmjs.com/package/@yitianyigexiangfa/zoom-mcp-server) ![MIT licensed](https://img.shields.io/npm/l/@yitianyigexiangfa/zoom-mcp-server) [![smithery badge](https://smithery.ai/badge/@JavaProgrammerLB/zoom-mcp-server)](https://smithery.ai/server/@JavaProgrammerLB/zoom-mcp-server) ![Zoom MCP Server](https://badge.mcpx.dev?type=server "MCP Server")
 
 Now you can date a Zoom meeting with AI's help
 ![about.jpg](about.jpg)
+
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/javaprogrammerlb-zoom-mcp-server-badge.png)](https://mseep.ai/app/javaprogrammerlb-zoom-mcp-server)
 
 ## Usage
 
